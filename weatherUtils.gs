@@ -1,3 +1,17 @@
+function fetchWeatherData(coordinate) {
+  const requestUrl = `${WEATHER_API_URL}?lat=${coordinate.lat}&lon=${coordinate.lng}&appid=${WEATHER_API_KEY}&lang=ja&units=metric`;
+
+  try {
+    const response = UrlFetchApp.fetch(requestUrl);
+    return JSON.parse(response.getContentText());
+  } catch (error) {
+    console.error(
+      `Failed to fetch weather data for city: ${coordinate}. Error: ${error}`
+    );
+    return null;
+  }
+}
+
 function extractRelevantWeatherInfo(jsonData) {
   if (
     !jsonData ||
